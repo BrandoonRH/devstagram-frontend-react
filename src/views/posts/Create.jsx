@@ -1,5 +1,6 @@
 import React, {createRef, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import MyDropzone from '../../components/Dropzone'
 import usePost from '../../hooks/usePost'
 import Alert from "../../components/Alert"
@@ -23,8 +24,17 @@ const handleSubmit = async e => {
      description: descriptionRef.current.value,
      image: imageRef.current.value
     }
-    await createPost(data, setErrors)
-    navigate(`/${user.username}`)
+    const response = await createPost(data, setErrors)
+    //console.log(response.status); 
+   if(response?.status === 200){
+        Swal.fire(
+            `${response.data.message}!`,
+            `Tú Post se a Subido a Desvstagram!`,
+            'success'
+        )
+        navigate(`/${user.username}`)
+    }
+
 }
     
 

@@ -23,11 +23,11 @@ const Register = ({title}) => {
 
 
   const [errors, setErrors] = useState([]); 
-  const [loading, setLoading] = useState(false); 
+ 
 
   const handleSubmit = async e => {
     e.preventDefault(); 
-    setLoading(true);
+    
     const data = {
       name: nameRef.current.value, 
       username: usernameRef.current.value,
@@ -44,13 +44,9 @@ const Register = ({title}) => {
             <h2 className="font-black text-center text-3xl mb-10">{title}</h2>
             <div className='md:flex md:justify-center md:gap-10 md:items-center'>
                 <div className='md:w-6/12 p-4'>
-                  <img className='shadow-2xl rounded-xl"' src="/images/registrar.jpg" alt="Imagen de registro Usuarios" />
+                  <img className='shadow-2xl rounded-lg' src="/images/registrar.jpg" alt="Imagen de registro Usuarios" />
                 </div>
-                {loading ? (
-                  <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
-                    <Spinner text="Cargando..."/>
-                  </div>
-                ):(
+               
                   <div className='md:w-4/12 bg-white p-6 rounded-xl shadow-2xl'>
                       <form onSubmit={handleSubmit} noValidate className="mb-5">
                       {errors ? errors.map((error, i)=> <Alert  key={i}>{error}</Alert>) : null }
@@ -78,7 +74,7 @@ const Register = ({title}) => {
                       </form>
                       <Link to="/auth/login" className="text-sm  text-gray-500 hover:text-gray-300 font-bold">¿Ya tienes Cuenta? Inicia Sesión Aquí</Link>
                   </div>
-                )}
+              
                
             </div>
     </>

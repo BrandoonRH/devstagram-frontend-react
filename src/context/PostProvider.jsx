@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
 import clientAxios from "../config/axios";
 const PostContext = createContext(); 
+import useSWR from 'swr';
+import Swal from "sweetalert2";
 
 const PostProvider = ({children}) => {
     //Config Peticiones HTTP 
@@ -10,23 +12,28 @@ const PostProvider = ({children}) => {
             Authorization: `Bearer ${token}`
         }
     }
+    const configSWR = {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    }
 
     const [imagePost, setImagePost] = useState('');
 
   
-
     const createPost = async (data, setErrors) => {
             try {
                 const response = await clientAxios.post('/posts/create', data, configHeaders);
-                setErrors([])
-                //console.log(response); 
+                setErrors([]); 
+            
+                return response
             } catch (error) {
                 setErrors(Object.values(error.response.data.errors)); 
             }
     }//createPost
 
     const addComenatrioPost = async (data, post, username, setErrors) => {
-       try {
+      try {
             const response = await clientAxios.post(`/${username}/posts/${post}`, data, configHeaders);
             setErrors([]);
            const message =  response.data.message
@@ -34,6 +41,8 @@ const PostProvider = ({children}) => {
         } catch (error) {
             setErrors(Object.values(error.response.data.errors)); 
         }
+       /* const fetcherAddCommentPost = () => clientAxios.post(`/${username}/posts/${post}`, data, configHeaders).then(data => data.data); 
+        const {data, error, isLoading} = useSWR(`/${username}/posts/${post}`)*/
     }//addComenatrioPost
 
     const getComentariosPost = async (post, setComentariosPost) => {
@@ -49,7 +58,7 @@ const PostProvider = ({children}) => {
     const deletePost = async (post) => {
         try {
             const response = await clientAxios.delete(`/posts/${post}`, configHeaders); 
-            console.log(response)
+            //console.log(response)
         } catch (error) {
             console.log(error)
         }
@@ -58,21 +67,20 @@ const PostProvider = ({children}) => {
     const likePost = async (post) => {
         try {
             const response = await clientAxios.post(`/posts/${post}/likes`, null, configHeaders); 
-            console.log(response); 
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    const deleteLikePost = async (post) => {
-        try {
-            const response = await clientAxios.delete(`/posts/${post}/likes`, configHeaders); 
-            console.log(response); 
+            //console.log(response); 
         } catch (error) {
             console.log(error);
         }
     }
 
-  
+    const deleteLikePost = async (post) => {
+        try {
+            const response = await clientAxios.delete(`/posts/${post}/likes`, configHeaders); 
+            //console.log(response); 
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     return (
@@ -85,7 +93,7 @@ const PostProvider = ({children}) => {
                 getComentariosPost,
                 deletePost,
                 likePost,
-                deleteLikePost
+                deleteLikePost,    
             }}
         >
             {children}

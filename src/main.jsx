@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import { PostProvider } from './context/PostProvider'
 import { FollowerUserProvider } from './context/FollowerUserProvider'
 import router from './router'
+import './css/Spinner.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>  

@@ -1,6 +1,9 @@
 import { diffForHumans } from "../helpers"
 
 const Comentario = ({comentario}) => {
+
+
+
   return (
     <div className="p-5 border-gray-400 border-b">
             <a href={`/${comentario.usernameComentario}`} className="font-bold text-gray-500">{comentario.usernameComentario}</a>

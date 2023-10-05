@@ -9,7 +9,8 @@ import CreatePost from "./views/posts/Create";
 import Show from "./views/posts/Show";
 import NotFound from "./views/NotFound";
 import EditProfile from "./views/admin/EditProfile";
-
+import Following from "./views/Following";
+import Follower from "./views/Follower";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -36,7 +37,16 @@ const router = createBrowserRouter([
             {
                 path: '/:username/edit-profile',
                 element: <EditProfile title="Edita tu Perfil de Devstagram"/>
+            },
+            {
+                path: '/:username/following',
+                element: <Following title="Personas que sigues "/>
+            },
+            {
+                path: '/:username/followers',
+                element: <Follower title="Personas que Siguen la cuenta de  "/>
             }
+           
         ]
     },
     {

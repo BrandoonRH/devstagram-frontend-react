@@ -22,7 +22,7 @@ export const getRandomInt = (min, max) => {
 export const choice = (textSingular, textPlural, number ) => {
     if(number === 1){
         return textSingular
-    }else if(number > 2 || number === 0){
+    }else if(number >= 2 || number === 0){
         return textPlural
     }
 }

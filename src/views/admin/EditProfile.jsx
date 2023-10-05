@@ -5,13 +5,14 @@ import Alert from "../../components/Alert";
 
 
 const EditProfile = ({title}) => {
+
     const navigate = useNavigate(); 
     const {username} = useParams(); 
     const {user, editProfile} = useAuth({middleware: 'auth'}); 
 
     const [errors, setErrors] = useState([]); 
     const [imagen, setImagen] = useState(null);
-    const [usernameState, setUsernameNew] = useState(user.username);
+    const [usernameState, setUsernameNew] = useState(user?.username);
 
 
     const handleChangeImage = (evento) => {
@@ -51,7 +52,7 @@ const EditProfile = ({title}) => {
                 {errors ? errors.map((error, i)=> <Alert  key={i}>{error}</Alert>) : null }
                     <div className='mb-5'>
                         <label className='mb-2 block uppercase text-gray-500 font-bold' htmlFor="username">Username:</label>
-                        <input  value={user?.username} onChange={handleChange} className='border p-3 w-full rounded-lg '  placeholder='Tú Nombre de Usuario' id="username" type="text" name='username'/>
+                        <input   onChange={handleChange} className='border p-3 w-full rounded-lg '  placeholder='Tú Nombre de Usuario' id="username" type="text" name='username'/>
                     </div>
                     <div className='mb-5'>
                         <label className='mb-2 block uppercase text-gray-500 font-bold' htmlFor="image">Imagen:</label>

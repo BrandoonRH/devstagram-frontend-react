@@ -29,21 +29,11 @@ const unfollowerUser = async (username) => {
     }
 }
 
-const ifFollowUser = async (username) => {
-    try {
-        const response = await clientAxios(`/${username}/follow`, configHeaders);
-        return response.data.siguiendo
-    } catch (error) {
-        console.log(error); 
-    }
-}
-
     return (
         <FollowerUserContext.Provider
             value={{
                 followerUser, 
                 unfollowerUser,
-                ifFollowUser,
             }}
         >
                 {children}
